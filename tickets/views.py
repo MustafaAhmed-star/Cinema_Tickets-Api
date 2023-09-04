@@ -32,7 +32,7 @@ def no_rest_from_model(request):
 '''
 #Function based view 
 #GET POST
-@api_view('GET',"POST")
+@api_view(['GET','POST'])
 def list_create_api(request):
     #GET
     if request.method == 'GET':
