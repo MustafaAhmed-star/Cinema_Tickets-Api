@@ -16,5 +16,9 @@ urlpatterns = [
     #5 CBV GET + POST from DRF
     path('rest/cbv/api',views.ListCreateApi.as_view()),
     #6 CBV GET PUT DELETE from DRF
-    path('rest/cbv/api/<int:pk>/',views.RetriveUpdateDeleteApi.as_view())
+    path('rest/cbv/api/<int:pk>/',views.RetriveUpdateDeleteApi.as_view()),
+    #7 Mixins GET  POST 
+    path('rest/mixins/create/',views.MixinsListCreate.as_view()),
+    #8 Mixins Retrieve PUT DELETE(Destroy)
+    path('rest/mixins/create/<int:pk>/',views.MixinsRetrieveUpdateDelete.as_view()),
 ]
