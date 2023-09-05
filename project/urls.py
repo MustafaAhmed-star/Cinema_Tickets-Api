@@ -13,6 +13,8 @@ urlpatterns = [
     path('rest/api/', views.list_create_api),
     #4 GET PUT DELETE from DRF
     path('rest/api/<int:pk>/', views.detail_update_delete_api),
-    #5 CBV GET + POST
-    path('rest/cbv/api',views.ListCreateApi.as_view())
+    #5 CBV GET + POST from DRF
+    path('rest/cbv/api',views.ListCreateApi.as_view()),
+    #6 CBV GET PUT DELETE from DRF
+    path('rest/cbv/api/<int:pk>/',views.RetriveUpdateDeleteApi.as_view())
 ]

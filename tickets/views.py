@@ -6,6 +6,7 @@ from .serializers import *
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.http import Http404
 '''
 # Without rest and no model query :
 def no_rest_no_model(request):
@@ -86,3 +87,32 @@ class ListCreateApi(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.data,status=status.HTTP_400_BAD_REQUEST)
     
+
+# CBV GET PUT DELETE
+class RetriveUpdateDeleteApi(APIView):
+    def get_object(self,pk):
+        try:
+            return Guest.objects.get(pk=pk)
+        except Guest.DoesNotExist:
+            raise Http404
+    #GET--->pk
+    def get (self,request,pk):
+        guest = self.get_object(pk)
+        serializer = GuestSerialzers(guest)
+        return Response(serializer.data)
+    #PUT
+    def put(self,request,pk):
+        guest = self.get_object(pk)
+        serializer = GuestSerialzers(guest,data=request.data )
+        if serializer.is_valid(self):
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    #DELETE
+    def delete(self,request,pk):
+        guest= self.get_object(pk)
+        guest.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+        
