@@ -9,6 +9,8 @@ urlpatterns = [
   #  path('no-rest-no-model',views.no_rest_no_model),
     #2
   #  path('no-rest-from-model',views.no_rest_from_model),
-    #3
-    path('rest/list-create', views.list_create_api)
+    #3 GET  POST  from DRF
+    path('rest/list-create', views.list_create_api),
+    #4 GET PUT DELETE from DRF
+    path('rest/api/<int:pk>/', views.detail_update_delete_api)
 ]
