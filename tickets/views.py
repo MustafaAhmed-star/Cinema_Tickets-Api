@@ -1,3 +1,4 @@
+"""Every views in Rest called endpoint"""
 from django.http.response import JsonResponse  
 from django.shortcuts import render
 from .models import Movie,Guest,Reservation
