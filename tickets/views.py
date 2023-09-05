@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.views import APIView
 '''
 # Without rest and no model query :
 def no_rest_no_model(request):
@@ -45,7 +46,7 @@ def list_create_api(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status= status.HTTP_201_CREATED)
-        return Response(serializer.data,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 #FBV GET PUT DELETE
 @api_view(['GET','PUT','DELETE'])
@@ -69,3 +70,19 @@ def detail_update_delete_api(request,pk):
     if request.method == 'DELETE':
         guest.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+#CBV GET POST
+class ListCreateApi(APIView):
+    #GET
+    def get(self,request):
+        guests = Guest.objects.all()
+        serializer = GuestSerialzers(guests,many = True)
+        return Response(serializer.data)
+    #POST
+    def post(self,request):
+        serializer = GuestSerialzers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.data,status=status.HTTP_400_BAD_REQUEST)
+    
