@@ -26,12 +26,13 @@ urlpatterns = [
     path('rest/mixins/create/',views.MixinsListCreate.as_view()),
     #8 Mixins Retrieve PUT DELETE(Destroy)
     path('rest/mixins/create/<int:pk>/',views.MixinsRetrieveUpdateDelete.as_view()),
-    # Generics GET POST
+    # 9 Generics GET POST
     path('rest/generics/create/',views.ListCreateGenericApi.as_view()),
-    # Generics GET PUT DELETE
+    #10 Generics GET PUT DELETE
 
     path('rest/generics/create/<int:pk>/',views.RetrieveUpdateDeleteApiGenerics.as_view()),
-    #Viewsets For all CRUD opperations (all models)
+    #11 Viewsets For all CRUD opperations (all models)
     path('rest/viewsets/', include(router.urls)),
-
+    #12 search fbv
+    path('rest/api/search',views.find_movie),
 ]

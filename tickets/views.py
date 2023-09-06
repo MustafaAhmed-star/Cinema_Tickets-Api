@@ -160,9 +160,17 @@ class ViewSetMovie(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerialzers
     # u can use filter_backend like to add search 
-    filter_backend = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter]
     search_fields = ['movie']
 # For Reservation all CRUD Opperations
 class ViewSetReservation(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerialzers
+#Find a move create a fbv for search
+def find_movie(request):
+    movies = Movie.objects.filter(
+        hall  = request.data['hall'],
+        movie  = request.data['movie']
+    )
+    serializer= MovieSerialzers(movies,many = True)
+    return Response(serializer.data)
