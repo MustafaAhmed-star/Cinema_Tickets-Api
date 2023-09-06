@@ -4,11 +4,11 @@ from django.shortcuts import render
 from .models import Movie,Guest,Reservation
 from rest_framework.decorators import api_view
 from .serializers import *
-from rest_framework import status
+from rest_framework import status ,filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from rest_framework import  generics , mixins
+from rest_framework import  generics , mixins , viewsets
 '''
 # Without rest and no model query :
 def no_rest_no_model(request):
@@ -145,5 +145,24 @@ class ListCreateGenericApi(generics.ListCreateAPIView):
     serializer_class = GuestSerialzers
 # GET PUT DELETE
 class RetrieveUpdateDeleteApiGenerics(generics.RetrieveUpdateDestroyAPIView):
+
+
     queryset = Guest.objects.all()
     serializer_class = GuestSerialzers
+
+#VIEWSETS بالترتيب  الكود بيقل 
+# For Guest all CRUD Opperations
+class ViewSetGuest(viewsets.ModelViewSet):
+    queryset = Guest.objects.all()
+    serializer_class = GuestSerialzers
+# For Movie all CRUD Opperations
+class ViewSetMovie(viewsets.ModelViewSet):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerialzers
+    # u can use filter_backend like to add search 
+    filter_backend = [filters.SearchFilter]
+    search_fields = ['movie']
+# For Reservation all CRUD Opperations
+class ViewSetReservation(viewsets.ModelViewSet):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerialzers
