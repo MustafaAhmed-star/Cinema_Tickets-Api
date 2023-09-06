@@ -167,6 +167,7 @@ class ViewSetReservation(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerialzers
 #Find a move create a fbv for search
+@api_view(['GET'])
 def find_movie(request):
     movies = Movie.objects.filter(
         hall  = request.data['hall'],
