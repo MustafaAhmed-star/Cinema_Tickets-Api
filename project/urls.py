@@ -21,4 +21,7 @@ urlpatterns = [
     path('rest/mixins/create/',views.MixinsListCreate.as_view()),
     #8 Mixins Retrieve PUT DELETE(Destroy)
     path('rest/mixins/create/<int:pk>/',views.MixinsRetrieveUpdateDelete.as_view()),
+    # Generics GET POST
+    path('rest/generics/create/',views.ListCreateGenericApi.as_view()),
+    path('rest/generics/create/<int:pk>/',views.RetrieveUpdateDeleteApiGenerics.as_view()),
 ]
