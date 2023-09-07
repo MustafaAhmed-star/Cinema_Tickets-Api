@@ -179,10 +179,17 @@ def find_movie(request):
 #Create a new reservation
 @api_view(['POST'])
 def create_reversation(request):
+    #get movie and hall from database
     movie = Movie.objects.get(
         hall = request.data['hall'],
         movie  = request.data['movie'],
     )
+    '''if i wanna create a new movie(POST)
+    movie = Movie.objects.create(   #make get---->create only
+        hall = request.data['hall'],
+        movie  = request.data['movie'],
+    )
+    '''
     print(request.data)
     guest =Guest()
     guest.name = request.data['name']
