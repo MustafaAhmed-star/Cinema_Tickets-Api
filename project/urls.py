@@ -37,4 +37,6 @@ urlpatterns = [
     path('rest/api/search',views.find_movie),
     #13 Reservation create
     path('res/dev/',views.create_reversation),
+    #14 rest auth url
+    path('res-auth',include('rest_framework.urls')),
 ]
