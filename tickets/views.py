@@ -9,6 +9,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import  generics , mixins , viewsets
+from rest_framework.authentication import BasicAuthentication  
+from rest_framework.permissions import IsAuthenticated
 '''
 # Without rest and no model query :
 def no_rest_no_model(request):
@@ -143,6 +145,9 @@ class MixinsRetrieveUpdateDelete(mixins.RetrieveModelMixin,mixins.UpdateModelMix
 class ListCreateGenericApi(generics.ListCreateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerialzers
+    #add security for one endpoint
+    authentication_classes = [BasicAuthentication]
+    permission_classes =  [IsAuthenticated]
 # GET PUT DELETE
 class RetrieveUpdateDeleteApiGenerics(generics.RetrieveUpdateDestroyAPIView):
 
