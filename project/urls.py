@@ -42,4 +42,6 @@ urlpatterns = [
     path('api-auth',include('rest_framework.urls')),
     #15 Token auth and generator
     path('api-auth-token',obtain_auth_token),
+    #16 Post pk all crud (testing)
+    path('post/create/<int:pk>',views.PostPk.as_view())
 ]

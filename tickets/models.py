@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import  receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
-
+from django.contrib.auth.models import User
 class Movie(models.Model):
     hall = models.CharField(max_length=20)
     movie = models.CharField(max_length=20)
@@ -24,3 +24,10 @@ class Reservation(models.Model):
 def TokenCreate(sender,instance,created,**kwargs):
     if created :
         Token.objects.create(user=instance)
+'''
+the next Model  it is for testing custom permissons
+'''
+class Post(models.Model):
+    author = models.ForeignKey(User,related_name='posts',on_delete=models.CASCADE)
+    title = models.CharField(max_length=30)
+    body = models.TextField()

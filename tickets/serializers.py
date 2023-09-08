@@ -13,4 +13,7 @@ class GuestSerialzers(serializers.ModelSerializer):
     class Meta:
         model = Guest
         fields =['pk','reservation_guest','name','mobile']
-        
+class PostSerialzers(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields ='__all__'        

@@ -1,7 +1,7 @@
 """Every views in Rest called endpoint"""
 from django.http.response import JsonResponse  
 from django.shortcuts import render
-from .models import Movie,Guest,Reservation
+from .models import Movie,Guest,Reservation,Post
 from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework import status ,filters
@@ -11,6 +11,7 @@ from django.http import Http404
 from rest_framework import  generics , mixins , viewsets
 from rest_framework.authentication import BasicAuthentication  ,TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from .permissons import IsAuthorOrReadOnly
 '''
 # Without rest and no model query :
 def no_rest_no_model(request):
@@ -206,3 +207,10 @@ def create_reversation(request):
     reservation.save()
     serializer = ReservationSerialzers(reservation)
     return Response(serializer.data,status = status.HTTP_201_CREATED)
+#class for testing  custom permissons
+class PostPk(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerialzers
+    #add security for one endpoint
+    authentication_classes = [TokenAuthentication]
+    permission_classes =  [IsAuthorOrReadOnly]
