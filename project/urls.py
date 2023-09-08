@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import include, path
 from tickets  import views 
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 router = DefaultRouter()
 router.register('guests',views.ViewSetGuest)
 router.register('movies',views.ViewSetMovie)
@@ -38,5 +39,7 @@ urlpatterns = [
     #13 Reservation create
     path('res/dev/',views.create_reversation),
     #14 rest auth url
-    path('res-auth',include('rest_framework.urls')),
+    path('api-auth',include('rest_framework.urls')),
+    #15 Token auth and generator
+    path('api-auth-token',obtain_auth_token),
 ]

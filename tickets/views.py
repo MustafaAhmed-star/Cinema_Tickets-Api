@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import  generics , mixins , viewsets
-from rest_framework.authentication import BasicAuthentication  
+from rest_framework.authentication import BasicAuthentication  ,TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 '''
 # Without rest and no model query :
@@ -146,14 +146,14 @@ class ListCreateGenericApi(generics.ListCreateAPIView):
     queryset = Guest.objects.all()
     serializer_class = GuestSerialzers
     #add security for one endpoint
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes =  [IsAuthenticated]
 # GET PUT DELETE
 class RetrieveUpdateDeleteApiGenerics(generics.RetrieveUpdateDestroyAPIView):
-
-
     queryset = Guest.objects.all()
     serializer_class = GuestSerialzers
+    #add security for one endpoint
+    authentication_classes = [TokenAuthentication]
 
 #VIEWSETS بالترتيب  الكود بيقل 
 # For Guest all CRUD Opperations
